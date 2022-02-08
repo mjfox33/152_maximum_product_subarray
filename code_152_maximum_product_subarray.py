@@ -1,13 +1,16 @@
+import math
 class Solution:
     def maxProduct(self, nums: list[int]) -> int:
         n=len(nums)
         if n < 2:
-            return 0
-        max_product = 0
-        for i in range(n-1):
-            product = nums[i] * nums[i+1]
-            if product > max_product:
-                max_product = product
+            return nums[0]
+        prefix = 0
+        suffix = 0
+        max_product = -math.inf
+        for i in range(n):
+            prefix = (prefix or 1) * nums[i]
+            suffix = (suffix or 1) * nums[~i]
+            max_product = max(max_product, prefix, suffix)
         return max_product
 
 # this needs work as i misunderstood the question
